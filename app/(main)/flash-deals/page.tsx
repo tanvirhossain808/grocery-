@@ -1,4 +1,4 @@
-import { ProductCard } from "../../components/ProductCard";
+// import { ProductCard } from "../../components/ProductCard";
 import { StoreShell } from "../../components/StoreShell";
 
 const deals = [
@@ -43,11 +43,11 @@ export default function FlashDealsPage() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {/* <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {deals.map((deal) => (
             <ProductCard key={deal.title} {...deal} />
           ))}
-        </div>
+        </div> */}
       </div>
     </StoreShell>
   );

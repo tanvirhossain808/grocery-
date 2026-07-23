@@ -1,4 +1,3 @@
-import { ProductCard } from "../../components/ProductCard";
 import { StoreShell } from "../../components/StoreShell";
 
 const products = [
@@ -52,11 +51,11 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {/* <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => (
             <ProductCard key={product.title} {...product} />
           ))}
-        </div>
+        </div> */}
       </div>
     </StoreShell>
   );

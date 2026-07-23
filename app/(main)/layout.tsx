@@ -1,9 +1,22 @@
+import Banner from "../components/Banner";
+import CartSidebar from "../components/CartSidebar";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import { CartProvider } from "../context/CartContext";
+
 export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  console.log(process.env.CURRENCY_SYMBOL);
   return (
-    <div>
-      d<div>{children}</div>
-    </div>
+    <>
+      <CartProvider>
+        <Banner />
+        <Navbar />
+        <div>{children}</div>
+        <Footer />
+        <CartSidebar />
+      </CartProvider>
+    </>
   );
 }

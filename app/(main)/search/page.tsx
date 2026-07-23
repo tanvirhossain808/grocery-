@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProductCard } from "../../components/ProductCard";
+// import { ProductCard } from "../../components/ProductCard";
 import { StoreShell } from "../../components/StoreShell";
 
 const results = [
@@ -48,9 +48,9 @@ export default function SearchResultsPage() {
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {results.map((result) => (
+          {/* {results.map((result) => (
             <ProductCard key={result.title} {...result} />
-          ))}
+          ))} */}
         </div>
       </div>
     </StoreShell>

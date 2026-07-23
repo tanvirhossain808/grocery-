@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
+import ToastProvider from "./components/ToastProvider";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -34,7 +35,10 @@ export default function RootLayout({
       className={`${outfit.variable} ${g.variable} ${dm_serif.variable} h-full antialiased`}
     >
       {/* // <html lang="en" className={`h-full antialiased`}> */}
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ToastProvider />
+        {children}
+      </body>
     </html>
   );
 }
