@@ -11,7 +11,6 @@ const PopularProducts = () => {
   useEffect(() => {
     setProducts(dummyProducts.slice(0, 10));
   }, []);
-  // console.log(process.env.CURRENCY_SYMBOL);
   return (
     <section className="pb-16">
       <div className="max-w-7xl mx-auto">

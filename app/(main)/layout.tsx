@@ -7,7 +7,6 @@ import { CartProvider } from "../context/CartContext";
 export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  console.log(process.env.CURRENCY_SYMBOL);
   return (
     <>
       <CartProvider>

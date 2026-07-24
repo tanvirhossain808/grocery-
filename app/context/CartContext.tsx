@@ -64,8 +64,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([]);
     setIsCartOpen(false);
   };
-  const cartTotal = items.reduce((sum, item) => sum + item.quantity, 0);
-  const cartCount = items.reduce(
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const cartTotal = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );

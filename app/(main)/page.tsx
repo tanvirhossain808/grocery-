@@ -37,8 +37,6 @@ const featuredProducts = [
 ];
 
 export default function Home() {
-  // console.log(process.env.CURRENCY_SYMBOL, "sumbol");
-
   useEffect(() => {
     const timer = setTimeout(() => {
       // Simulate loading state for 2 seconds

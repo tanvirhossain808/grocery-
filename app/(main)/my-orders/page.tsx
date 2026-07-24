@@ -16,14 +16,12 @@ export default function MyOrdersPage() {
     setTimeout(() => {
       toast("Your order has been placed successfully!");
     }, 1000);
-    console.log("hey");
   }, []);
   return (
     <>
       <StoreShell title="My orders" description="Order history">
         <button
           onClick={() => {
-            console.log(toast, "clicked");
             toast("Your order has been placed successfully!");
           }}
         >

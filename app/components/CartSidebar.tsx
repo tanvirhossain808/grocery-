@@ -133,7 +133,7 @@ const CartSidebar = () => {
               <span className="text-app-light">Delivery</span>
               <span className="font-medium">
                 {deliveryFee === 0 ? (
-                  <span>Free</span>
+                  <span className="text-app-success">Free</span>
                 ) : (
                   <span>{`${currency} ${deliveryFee.toFixed(2)}`}</span>
                 )}

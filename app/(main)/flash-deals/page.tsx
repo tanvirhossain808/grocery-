@@ -1,54 +1,35 @@
-// import { ProductCard } from "../../components/ProductCard";
-import { StoreShell } from "../../components/StoreShell";
+"use client";
+import { Product } from "@/app/types";
+import { dummyProducts } from "@/public/grocery-assets/assets";
+import { Zap } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
-const deals = [
-  {
-    title: "Berry Basket",
-    price: "$7.99",
-    unit: "Limited offer",
-    badge: "Save 20%",
-    href: "/product",
-  },
-  {
-    title: "Sourdough Loaf",
-    price: "$3.49",
-    unit: "Fresh baked",
-    badge: "Deal of the day",
-    href: "/product",
-  },
-  {
-    title: "Sparkling Water",
-    price: "$2.99",
-    unit: "6 pack",
-    badge: "Bundle",
-    href: "/product",
-  },
-];
+const FlashDeals = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default function FlashDealsPage() {
+  useEffect(() => {
+    setProducts(dummyProducts.filter((p) => p.stock > 0));
+    setTimeout(() => setLoading(false), 0);
+  }, []);
+
   return (
-    <StoreShell title="Flash deals" description="Limited-time offers">
-      <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-900">
-              Today’s best offers
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Grab high-value savings before they disappear.
+    <div className="min-h bg-app-cream">
+      <div className="bg-linear-to-r from-app-orange to-app-orange-dark text-white py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:-px-6 lg:px-8 text-center">
+          <div className="flex-center gap-2 mb-3">
+            <Zap className="size-6 fill-white" />
+            <h1 className="text-3xl font-semibold">Flash Deals</h1>
+            <Zap className="size-6 fill-white" />
+            <p className="text-white/80 mx-auto max-w-md">
+              Limited-time offers on your favorite organic products. Grab them
+              before they`&apos;`re gone!
             </p>
           </div>
-          <div className="rounded-full bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-700">
-            Ends in 03:12:08
-          </div>
         </div>
-
-        {/* <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {deals.map((deal) => (
-            <ProductCard key={deal.title} {...deal} />
-          ))}
-        </div> */}
       </div>
-    </StoreShell>
+    </div>
   );
-}
+};
+
+export default FlashDeals;
