@@ -1,58 +1,78 @@
+"use client";
+import Loading from "@/app/components/Loading";
+import ProductCard from "@/app/components/ProductCard";
+import { Product } from "@/app/types";
+import { dummyProducts } from "@/public/grocery-assets/assets";
+import { Home, Search } from "lucide-react";
 import Link from "next/link";
-// import { ProductCard } from "../../components/ProductCard";
-import { StoreShell } from "../../components/StoreShell";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const results = [
-  {
-    title: "Organic Apples",
-    price: "$4.20",
-    unit: "1 kg",
-    badge: "Seasonal",
-    href: "/product",
-  },
-  {
-    title: "Fresh Spinach",
-    price: "$2.90",
-    unit: "200g",
-    badge: "Leafy",
-    href: "/product",
-  },
-  {
-    title: "Cold Pressed Juice",
-    price: "$6.50",
-    unit: "500ml",
-    badge: "Trending",
-    href: "/product",
-  },
-];
+const SearchPage = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const query = useSearchParams().get("q") || "";
 
-export default function SearchResultsPage() {
+  useEffect(() => {
+    if (!query) return;
+    setLoading(true);
+    setProducts(
+      dummyProducts.filter((p) =>
+        p.name.toLowerCase().includes(query.toLowerCase()),
+      ),
+    );
+    setLoading(false);
+  }, [query]);
   return (
-    <StoreShell title="Search results" description="Find what you need quickly">
-      <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-900">
-              Results for “fresh”
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              3 products matched your search.
-            </p>
-          </div>
-          <Link
-            href="/products"
-            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-emerald-600 hover:text-emerald-600"
-          >
-            Browse all
+    <div className="min-h-screen bg-app-cream">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* breadCrump */}
+        <nav className="flex items-center gap-2 text-sm text-app-text-light mb-6">
+          <Link href="/" className="hover:text-app-green transition-colors">
+            <Home className="size-4" />
           </Link>
+          <span>/</span>
+          <span className="text-app-green font-medium">Search Results</span>
+        </nav>
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold text-app-green mb-1">
+            Results for &quot;{query}&quot;
+          </h1>
+          <p className="text-sm text-app-text-light">
+            {loading ? "Searching..." : `${products.length} items found`}
+          </p>
         </div>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {/* {results.map((result) => (
-            <ProductCard key={result.title} {...result} />
-          ))} */}
-        </div>
+        {/* Results */}
+        {loading ? (
+          <Loading />
+        ) : products.length === 0 ? (
+          <div className="text-center py-20">
+            <Search className="size-16 text-app-border mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-app-green mb-2">
+              No Result found
+            </h2>
+            <p className="text-sm text-app-text-light mb-6 max-w-md mx-auto">
+              We couldn&apos;t find any products matching &quot;{query}
+              &quot;.Try a different search term
+            </p>
+            <Link
+              href="/products"
+              className="inline-flex px-5 py-2.5 bg-app-green text-white text-sm font-medium rounded-lg"
+            >
+              Browse All Products
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {products.map((p) => (
+              <ProductCard key={p._id} product={p} />
+            ))}
+          </div>
+        )}
       </div>
-    </StoreShell>
+    </div>
   );
-}
+};
+
+export default SearchPage;

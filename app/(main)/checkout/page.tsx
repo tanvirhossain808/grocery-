@@ -1,74 +1,195 @@
-import Link from "next/link";
-import { StoreShell } from "../../components/StoreShell";
+"use client";
+import CheckoutAddress from "@/app/components/Checkout/CheckoutAddress";
+import CheckoutPayment from "@/app/components/Checkout/CheckoutPayment";
+import CheckoutReview from "@/app/components/Checkout/CheckoutReview";
+import { useCart } from "@/app/context/CartContext";
+import { Address } from "@/app/types";
+import { dummyAddressData } from "@/public/grocery-assets/assets";
+import { Button } from "@heroui/react";
+import {
+  ArrowLeftIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  CreditCardIcon,
+  MapIcon,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
-export default function CheckoutPage() {
-  return (
-    <StoreShell title="Checkout" description="Secure payment and delivery">
-      <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <h2 className="text-2xl font-semibold text-slate-900">
-            Review your order
+const CheckoutPage = () => {
+  const router = useRouter();
+  const { items, cartTotal } = useCart();
+  const { user } = { user: { addresses: dummyAddressData } };
+  const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+  const [step, setStep] = useState("address");
+  const [loading, setLoading] = useState(false);
+  const [address, setAddress] = useState<Address>({
+    _id: "",
+    label: "Home",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    isDefault: false,
+    lat: 0,
+    lng: 0,
+  });
+  const [paymentMethod, setPaymentMethod] = useState("card");
+
+  const deliveryFee = cartTotal > 20 ? 0 : 1.99;
+  const tax = cartTotal * 0.08;
+  const total = cartTotal + deliveryFee + tax;
+  const steps: { key: string; label: string; icon: typeof MapIcon }[] = [
+    { key: "address", label: "Address", icon: MapIcon },
+    { key: "payment", label: "Payment", icon: CreditCardIcon },
+    { key: "review", label: "Review", icon: CheckIcon },
+  ];
+  const handlePlaceOrder = async () => {
+    setLoading(true);
+    router.push("/orders");
+  };
+  useState(() => {
+    if (user?.addresses?.length) {
+      const defaultAddress = user.addresses.find(
+        (a) => a.isDefault || user.addresses[0],
+      );
+      if (defaultAddress) {
+        setAddress({
+          _id: defaultAddress?._id,
+          label: defaultAddress?.label,
+          address: defaultAddress?.address,
+          city: defaultAddress?.city,
+          state: defaultAddress?.state,
+          zip: defaultAddress?.zip,
+          isDefault: defaultAddress.isDefault,
+          lat: defaultAddress.lat,
+          lng: defaultAddress.lng,
+        });
+      }
+    }
+  });
+  if (items.length === 0) {
+    return (
+      <div className="min-h-screen bg-app-cream flex-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-app-green mb-2">
+            Your cart is empty
           </h2>
-          <div className="mt-6 space-y-4">
-            <div className="flex items-center justify-between rounded-[20px] bg-slate-50 p-4">
-              <div>
-                <p className="font-semibold text-slate-900">Organic Bananas</p>
-                <p className="text-sm text-slate-500">Qty 2</p>
-              </div>
-              <p className="font-semibold text-slate-900">$4.98</p>
-            </div>
-            <div className="flex items-center justify-between rounded-[20px] bg-slate-50 p-4">
-              <div>
-                <p className="font-semibold text-slate-900">Fresh Milk</p>
-                <p className="text-sm text-slate-500">Qty 1</p>
-              </div>
-              <p className="font-semibold text-slate-900">$3.20</p>
-            </div>
-          </div>
-
-          <div className="mt-6 space-y-3 rounded-[24px] border border-slate-200 p-4">
-            <div className="flex items-center justify-between text-sm text-slate-600">
-              <span>Subtotal</span>
-              <span>$8.18</span>
-            </div>
-            <div className="flex items-center justify-between text-sm text-slate-600">
-              <span>Delivery</span>
-              <span>$2.00</span>
-            </div>
-            <div className="flex items-center justify-between text-lg font-semibold text-slate-900">
-              <span>Total</span>
-              <span>$10.18</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-[28px] border border-emerald-100 bg-emerald-50/80 p-6 shadow-sm sm:p-8">
-          <h3 className="text-xl font-semibold text-slate-900">
-            Delivery details
-          </h3>
-          <div className="mt-4 space-y-4 text-sm text-slate-600">
-            <div>
-              <p className="font-semibold text-slate-900">Address</p>
-              <p>12 Orchard Street, Apt 4</p>
-            </div>
-            <div>
-              <p className="font-semibold text-slate-900">Payment</p>
-              <p>Visa ending in 4242</p>
-            </div>
-            <div>
-              <p className="font-semibold text-slate-900">Time slot</p>
-              <p>Today • 6:00 PM - 7:00 PM</p>
-            </div>
-          </div>
-
-          <Link
-            href="/order-tracking"
-            className="mt-6 inline-flex rounded-full bg-emerald-600 px-5 py-3 font-semibold text-white hover:bg-emerald-700"
+          <p className="text-sm text-app-text-light mb-4">
+            Add some products to checkout
+          </p>
+          <Button
+            onClick={() => router.push("/products")}
+            className="px-5 py-2.5 bg-app-green text-white text-sm font-medium rounded-xl hover:bg-app-green-light transition-colors"
           >
-            Place order
-          </Link>
+            Browse product
+          </Button>
         </div>
       </div>
-    </StoreShell>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-app-cream">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* back button */}
+        <Button
+          onClick={() => router.back()}
+          className="flex items-center p-0 bg-inherit gap-2 text-sm text-app-text-light hover:text-app-green mb-6 transition-colors"
+        >
+          <ArrowLeftIcon className="size-4" /> Back
+        </Button>
+        <h1 className="text-2xl font-semibold text-app-green mb-8">Checkout</h1>
+        <div className="flex items-center gap-2 mb-8">
+          {steps.map((s, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <Button
+                onClick={() => setStep(s.key)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${step === s.key ? "bg-app-green text-white" : "bg-white text-app-text-light"}`}
+              >
+                <s.icon className="size-4" />
+                {s.label}
+                {i < steps.length - 1 && (
+                  <ChevronRightIcon className="seize-4 text-app-text-light" />
+                )}
+              </Button>
+            </div>
+          ))}
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {/*main form*/}
+          <div className="md:col-span-2">
+            {step === "address" && (
+              <CheckoutAddress
+                address={address}
+                setAddress={setAddress}
+                setStep={setStep}
+                user={user}
+              />
+            )}
+            {step === "payment" && (
+              <CheckoutPayment
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+                setStep={setStep}
+              />
+            )}
+            {step === "review" && (
+              <CheckoutReview
+                address={address}
+                items={items}
+                handlePlaceOrder={handlePlaceOrder}
+                loading={loading}
+                total={total}
+              />
+            )}
+          </div>
+          {/* order summary sidebar */}
+          <div className="bg-white rounded-2xl p-5 h-fit sticky top-24">
+            <h3 className="text-sm font-semibold text-app-green mb-4">
+              Order Summary
+            </h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-app-text-light">
+                  Subtotal {items.length} items
+                </span>
+                <span>
+                  {currency}
+                  {cartTotal.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-app-text-light">Delivery</span>
+                <span>
+                  {deliveryFee === 0 ? (
+                    <span className="text-app-success">Free</span>
+                  ) : (
+                    `${currency}
+                  ${deliveryFee.toFixed(2)}`
+                  )}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-app-text-light">Tax</span>
+                <span>
+                  {currency}
+                  {tax.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between pt-3 border border-t border-app-border text-base font-semibold">
+                <span className="text-app-text-light">Total</span>
+                <span className="text-app-green">
+                  {currency}
+                  {total.toFixed(2)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default CheckoutPage;
