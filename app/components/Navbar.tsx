@@ -60,7 +60,7 @@ export default function Navbar() {
             <Link href="/">Home</Link>
             <Link href="/products">Product</Link>
             <Link href="/deals" className="text-app-orange">
-              Home
+              Deals
             </Link>
           </div>
           <form

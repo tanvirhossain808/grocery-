@@ -1,51 +1,115 @@
-import { StoreShell } from "../../components/StoreShell";
+"use client";
+import AddressCard from "@/app/components/AddressCard";
+import AddressForm from "@/app/components/AddressForm";
+import Loading from "@/app/components/Loading";
+import { Address } from "@/app/types";
+import { dummyAddressData } from "@/public/grocery-assets/assets";
+import { Button } from "@heroui/react";
+import { MapPinIcon, PlusIcon } from "lucide-react";
+import React, { SubmitEvent, useEffect, useState } from "react";
 
-const addresses = [
-  { label: "Home", detail: "12 Orchard Street, Apt 4, Brooklyn" },
-  { label: "Office", detail: "88 Market Plaza, Floor 9, Manhattan" },
-];
-
-export default function AddressPage() {
+const AddressPage = () => {
+  const [address, setAddresses] = useState<Address[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    label: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    isDefault: false,
+  });
+  const resetForm = () => {
+    setForm({
+      label: "",
+      address: "",
+      city: "",
+      state: "",
+      zip: "",
+      isDefault: false,
+    });
+    setShowForm(false);
+    setEditingId(null);
+  };
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+  };
+  const onEditHandler = (add: Address) => {
+    setForm({
+      label: add.label,
+      address: add.address,
+      city: add.city,
+      state: add.state,
+      zip: add.zip,
+      isDefault: add.isDefault,
+    });
+    setEditingId(add._id);
+    setShowForm(true);
+  };
+  useEffect(() => {
+    setAddresses(dummyAddressData);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
   return (
-    <StoreShell title="Saved addresses" description="Delivery locations">
-      <div className="grid gap-6 lg:grid-cols-[1fr_0.85fr]">
-        <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold text-slate-900">
-                Choose a delivery address
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Use your preferred address for future orders.
-              </p>
-            </div>
-            <button className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
-              Add address
-            </button>
+    <div className="min-h-screen bg-app-cream">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* header */}
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-2xl  font-semibold text-app-green">
+            My Addresses
+          </h1>
+          <Button
+            onClick={() => {
+              resetForm();
+              setShowForm(true);
+            }}
+            className="px-4 py-2 bg-app-green text-white text-sm font-semibold rounded-xl hover:bg-app-green-light transition-colors flex items-center gap-2"
+          >
+            <PlusIcon className="size-4" />
+            Add Address
+          </Button>
+        </div>
+        {/* Form modal */}
+        {showForm && (
+          <AddressForm
+            handleSubmit={handleSubmit}
+            resetForm={resetForm}
+            form={form}
+            setForm={setForm}
+            editingId={editingId}
+          />
+        )}
+        {loading ? (
+          <Loading />
+        ) : address.length === 0 ? (
+          <div className="text-center py-16">
+            <MapPinIcon className="size-16 text-app-border mx-auto mb-4" />
+            <h2 className="text-lg font-semibold text-app-green mb-2">
+              No address saved
+            </h2>
+            <p className="text-sm text-app-text-light">
+              Add and address for faster checkout
+            </p>
           </div>
-
-          <div className="mt-6 space-y-4">
-            {addresses.map((address) => (
-              <div
-                key={address.label}
-                className="rounded-[20px] border border-slate-200 bg-slate-50 p-4"
-              >
-                <p className="font-semibold text-slate-900">{address.label}</p>
-                <p className="mt-1 text-sm text-slate-600">{address.detail}</p>
-              </div>
+        ) : (
+          <div className="space-y-4">
+            {address.map((add) => (
+              <AddressCard
+                key={add._id}
+                addr={add}
+                onEditHandler={onEditHandler}
+                setAddresses={setAddresses}
+              />
             ))}
           </div>
-        </div>
-
-        <div className="rounded-[28px] border border-emerald-100 bg-emerald-50/80 p-6 shadow-sm sm:p-8">
-          <h3 className="text-xl font-semibold text-slate-900">Quick tips</h3>
-          <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-            <li>• Add a landmark to help your rider find you faster.</li>
-            <li>• Save a backup address for office or weekend delivery.</li>
-            <li>• Keep your contact number updated for smoother handoff.</li>
-          </ul>
-        </div>
+        )}
       </div>
-    </StoreShell>
+    </div>
   );
-}
+};
+
+export default AddressPage;
