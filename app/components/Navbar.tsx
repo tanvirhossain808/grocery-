@@ -16,12 +16,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitEvent, useState } from "react";
 import { Button, SearchField } from "@heroui/react";
+import { useAuthContext } from "../context/authContext";
 export default function Navbar() {
-  const user = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    isAdmin: true,
-  };
+  const { user, logout } = useAuthContext();
   // const user = null;
   const { cartCount, setIsCartOpen } = {
     cartCount: 3,
@@ -39,6 +36,7 @@ export default function Navbar() {
     }
   };
   const handleLogout = () => {
+    logout();
     setUserMenuOpen(false);
     navigation.replace("/");
   };
@@ -106,7 +104,7 @@ export default function Navbar() {
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                 >
                   <div className="size-7 rounded-full bg-green-950 text-white flex-center">
-                    {user.name.charAt(0).toUpperCase()}
+                    {user?.name?.charAt(0)?.toUpperCase()}
                   </div>
                   <ChevronDownIcon className="size-3 text-zinc-500" />
                 </Button>

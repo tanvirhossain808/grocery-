@@ -2,6 +2,7 @@ import Banner from "../components/Banner";
 import CartSidebar from "../components/CartSidebar";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { AuthProvider } from "../context/authContext";
 import { CartProvider } from "../context/CartContext";
 
 export default function Layout({
@@ -9,13 +10,15 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <CartProvider>
-        <Banner />
-        <Navbar />
-        <div>{children}</div>
-        <Footer />
-        <CartSidebar />
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Banner />
+          <Navbar />
+          <div>{children}</div>
+          <Footer />
+          <CartSidebar />
+        </CartProvider>
+      </AuthProvider>
     </>
   );
 }

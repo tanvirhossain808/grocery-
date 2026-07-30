@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import ToastProvider from "./components/ToastProvider";
+import { AuthProvider } from "./context/authContext";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -37,7 +38,7 @@ export default function RootLayout({
       {/* // <html lang="en" className={`h-full antialiased`}> */}
       <body className="min-h-full flex flex-col">
         <ToastProvider />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

@@ -16,6 +16,8 @@ import {
   InputGroup,
   Spinner,
 } from "@heroui/react";
+import { useAuthContext } from "@/app/context/authContext";
+import toast from "react-hot-toast";
 export default function LoginPage() {
   const [isLoginState, setIsLoginState] = useState(true);
   const [formData, setFormData] = useState({
@@ -24,14 +26,19 @@ export default function LoginPage() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const { login, register } = useAuthContext();
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const { name, email, password } = formData;
     e.preventDefault();
     setLoading(true);
-
-    setTimeout(() => {
+    try {
+      if (isLoginState) await login(email, password);
+      else await register(name, email, password);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error?.message);
+    } finally {
       setLoading(false);
-      redirect("/");
-    }, 1000);
+    }
   };
   return (
     <div className="flex">

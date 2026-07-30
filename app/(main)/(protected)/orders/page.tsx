@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/app/components/Loading";
+import { useAuthContext } from "@/app/context/authContext";
 import { useCart } from "@/app/context/CartContext";
 import { Order } from "@/app/types";
 import {
@@ -15,6 +16,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const MyOrders = () => {
+  const { user } = useAuthContext();
+
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
   const [orders, setOrders] = useState<Order[]>([]);
   const [activeTab, setActiveTab] = useState("All");
@@ -35,7 +38,7 @@ const MyOrders = () => {
       setTimeout(() => fetchOrders, 2000);
     } else fetchOrders();
   }, [activeTab]);
-  console.log(orders);
+  if (!user) return router.replace("/login");
   return (
     <div className="min-h-screen bg-app-cream mb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -75,15 +78,15 @@ const MyOrders = () => {
             {orders.map((order) => (
               <Link
                 className="block max-w-4xl bg-white rounded-2 xl p-5 hover:shadow transition-all"
-                key={order._id}
-                href={`/orders/${order._id}`}
+                key={order.id}
+                href={`/orders/${order.id}`}
               >
                 {/* order id,date ,status */}
                 <div className="flex items-start justify-between mb-3">
                   {/* left */}
                   <div>
                     <p className="text-sm font-medium text-app-green">
-                      Order #{order._id.slice(-8).toUpperCase()}
+                      Order #{order.id.slice(-8).toUpperCase()}
                     </p>
                     <div className="flex items-center gap-2 mt-1">
                       <CalendarIcon className="size-3 text-app-text-light" />

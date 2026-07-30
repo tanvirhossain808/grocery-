@@ -34,10 +34,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items]);
   const addToCart = (product: Product, quantity = 1) => {
     setItems((pre) => {
-      const existing = pre.find((item) => item.product._id === product._id);
+      const existing = pre.find((item) => item.product.id === product.id);
       if (existing) {
         return pre.map((item) =>
-          item.product._id === product._id
+          item.product.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item,
         );
@@ -47,7 +47,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsCartOpen(true);
   };
   const removeFromCart = (productId: string) =>
-    setItems((pre) => pre.filter((item) => item.product._id !== productId));
+    setItems((pre) => pre.filter((item) => item.product.id !== productId));
   const updateQuantity = (productId: string, quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(productId);
@@ -55,7 +55,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
     setItems((pre) =>
       pre.map((item) =>
-        item.product._id === productId ? { ...item, quantity } : item,
+        item.product.id === productId ? { ...item, quantity } : item,
       ),
     );
   };

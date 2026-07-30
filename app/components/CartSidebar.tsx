@@ -59,7 +59,7 @@ const CartSidebar = () => {
           ) : (
             items.map((item) => (
               <div
-                key={item.product._id}
+                key={item.product.id}
                 className="flex gap-3 bg-app-cream/60 rounded-xl p-3"
               >
                 <Image
@@ -81,7 +81,7 @@ const CartSidebar = () => {
                     <div className="flex items-center gap-1.5">
                       <Button
                         onClick={() =>
-                          updateQuantity(item.product._id, item.quantity - 1)
+                          updateQuantity(item.product.id, item.quantity - 1)
                         }
                         isIconOnly
                         className="bg-white text-black size-7 rounded-lg border border-app-border flex-center"
@@ -93,7 +93,7 @@ const CartSidebar = () => {
                       </span>
                       <Button
                         onClick={() =>
-                          updateQuantity(item.product._id, item.quantity + 1)
+                          updateQuantity(item.product.id, item.quantity + 1)
                         }
                         isIconOnly
                         className="bg-white size-7 rounded-lg text-black border border-app-border flex-center"
@@ -107,7 +107,7 @@ const CartSidebar = () => {
                         {(item.product.price * item.quantity).toFixed(1)}
                       </span>
                       <Button
-                        onClick={() => removeFromCart(item.product._id)}
+                        onClick={() => removeFromCart(item.product.id)}
                         isIconOnly
                         className="p-1 text-app-text-light bg-inherit hover:text-app-error translation-colors"
                       >

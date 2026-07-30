@@ -128,7 +128,7 @@ export const iconsForLeafpad = {
 
 export const dummyProducts = [
   {
-    _id: "69c22613ae75a98c7cd13b3b",
+    id: "69c22613ae75a98c7cd13b3b",
     name: "Butter Croissant 100g",
     description: "Flaky and buttery",
     price: 45,
@@ -148,7 +148,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b3b",
   },
   {
-    _id: "69c22613ae75a98c7cd13b37",
+    id: "69c22613ae75a98c7cd13b37",
     name: "Organic Quinoa 500g",
     description: "High protein, Gluten-free",
     price: 420,
@@ -168,7 +168,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b37",
   },
   {
-    _id: "69c22613ae75a98c7cd13b3a",
+    id: "69c22613ae75a98c7cd13b3a",
     name: "Brown Bread 400g",
     description: "Soft and healthy, Ideal for breakfast",
     price: 35,
@@ -188,7 +188,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b3a",
   },
   {
-    _id: "69c22613ae75a98c7cd13b36",
+    id: "69c22613ae75a98c7cd13b36",
     name: "Barley 1kg",
     description: "Rich in fiber, Helps digestion",
     price: 140,
@@ -208,7 +208,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b36",
   },
   {
-    _id: "69c22613ae75a98c7cd13b39",
+    id: "69c22613ae75a98c7cd13b39",
     name: "Knorr Cup Soup 70g",
     description: "Convenient and tasty",
     price: 30,
@@ -228,7 +228,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b39",
   },
   {
-    _id: "69c22613ae75a98c7cd13b38",
+    id: "69c22613ae75a98c7cd13b38",
     name: "Maggi Noodles 280g",
     description: "Instant and easy to cook",
     price: 50,
@@ -248,7 +248,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b38",
   },
   {
-    _id: "69c22613ae75a98c7cd13b30",
+    id: "69c22613ae75a98c7cd13b30",
     name: "Sprite 1.5L",
     description: "Chilled and refreshing, Perfect for celebrations",
     price: 60,
@@ -268,7 +268,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b30",
   },
   {
-    _id: "69c22613ae75a98c7cd13b23",
+    id: "69c22613ae75a98c7cd13b23",
     name: "Carrot 500g",
     description:
       "Sweet and crunchy, Good for eyesight, Ideal for juices and salads",
@@ -289,7 +289,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b23",
   },
   {
-    _id: "69c22613ae75a98c7cd13b2f",
+    id: "69c22613ae75a98c7cd13b2f",
     name: "Coca-Cola 1.5L",
     description: "Perfect for parties and gatherings, Best served chilled",
     price: 75,
@@ -309,7 +309,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b2f",
   },
   {
-    _id: "69c22613ae75a98c7cd13b35",
+    id: "69c22613ae75a98c7cd13b35",
     name: "Brown Rice 1kg",
     description: "Whole grain and nutritious",
     price: 110,
@@ -329,7 +329,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b35",
   },
   {
-    _id: "69c22613ae75a98c7cd13b2d",
+    id: "69c22613ae75a98c7cd13b2d",
     name: "Eggs 12 pcs",
     description: "Farm fresh, Rich in protein, Ideal for breakfast and baking",
     price: 85,
@@ -349,7 +349,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b2d",
   },
   {
-    _id: "69c22613ae75a98c7cd13b28",
+    id: "69c22613ae75a98c7cd13b28",
     name: "Banana 1 kg",
     description:
       "Sweet and ripe, High in potassium, Great for smoothies and snacking",
@@ -370,7 +370,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b28",
   },
   {
-    _id: "69c22613ae75a98c7cd13b33",
+    id: "69c22613ae75a98c7cd13b33",
     name: "Basmati Rice 5kg",
     description: "Long grain and aromatic, Perfect for biryani",
     price: 520,
@@ -390,7 +390,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b33",
   },
   {
-    _id: "69c22613ae75a98c7cd13b25",
+    id: "69c22613ae75a98c7cd13b25",
     name: "Onion 500g",
     description: "Fresh and pungent, Perfect for cooking, A kitchen staple",
     price: 45,
@@ -410,7 +410,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b25",
   },
   {
-    _id: "69c22613ae75a98c7cd13b31",
+    id: "69c22613ae75a98c7cd13b31",
     name: "7 Up 1.5L",
     description: "Refreshing lemon-lime flavor",
     price: 70,
@@ -430,7 +430,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b31",
   },
   {
-    _id: "69c22613ae75a98c7cd13b24",
+    id: "69c22613ae75a98c7cd13b24",
     name: "Spinach 500g",
     description: "Rich in iron, High in vitamins, Perfect for soups and salads",
     price: 15,
@@ -450,7 +450,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b24",
   },
   {
-    _id: "69c22613ae75a98c7cd13b27",
+    id: "69c22613ae75a98c7cd13b27",
     name: "Orange 1 kg",
     description:
       "Juicy and sweet, Rich in Vitamin C, Perfect for juices and salads",
@@ -471,7 +471,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b27",
   },
   {
-    _id: "69c22613ae75a98c7cd13b34",
+    id: "69c22613ae75a98c7cd13b34",
     name: "Wheat Flour 5kg",
     description: "Soft and fluffy rotis, Rich in nutrients",
     price: 230,
@@ -491,7 +491,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b34",
   },
   {
-    _id: "69c22613ae75a98c7cd13b2a",
+    id: "69c22613ae75a98c7cd13b2a",
     name: "Grapes 500g",
     description:
       "Fresh and juicy, Rich in antioxidants, Perfect for snacking and fruit salads",
@@ -512,7 +512,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b2a",
   },
   {
-    _id: "69c22613ae75a98c7cd13b32",
+    id: "69c22613ae75a98c7cd13b32",
     name: "Fanta 1.5L",
     description: "Sweet and fizzy",
     price: 65,
@@ -532,7 +532,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b32",
   },
   {
-    _id: "69c22613ae75a98c7cd13b2c",
+    id: "69c22613ae75a98c7cd13b2c",
     name: "Paneer 200g",
     description:
       "Soft and fresh, Rich in protein, Ideal for curries and snacks",
@@ -553,7 +553,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b2c",
   },
   {
-    _id: "69c22613ae75a98c7cd13b29",
+    id: "69c22613ae75a98c7cd13b29",
     name: "Mango 1 kg",
     description:
       "Sweet and flavorful, Perfect for smoothies and desserts, Rich in Vitamin A",
@@ -574,7 +574,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b29",
   },
   {
-    _id: "69c22613ae75a98c7cd13b22",
+    id: "69c22613ae75a98c7cd13b22",
     name: "Tomato 1 kg",
     description:
       "Juicy and ripe, Rich in Vitamin C, Perfect for salads and sauces, Farm fresh quality",
@@ -595,7 +595,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b22",
   },
   {
-    _id: "69c22613ae75a98c7cd13b21",
+    id: "69c22613ae75a98c7cd13b21",
     name: "Potato 500g",
     description:
       "Fresh and organic, Rich in carbohydrates, Ideal for curries and fries",
@@ -616,7 +616,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b21",
   },
   {
-    _id: "69c22613ae75a98c7cd13b2e",
+    id: "69c22613ae75a98c7cd13b2e",
     name: "Cheese 200g",
     description:
       "Creamy and delicious, Perfect for pizzas and sandwiches, Rich in calcium",
@@ -637,7 +637,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b2e",
   },
   {
-    _id: "69c22613ae75a98c7cd13b2b",
+    id: "69c22613ae75a98c7cd13b2b",
     name: "Amul Milk 1L",
     description: "Fresh milk, Rich in calcium",
     price: 55,
@@ -657,7 +657,7 @@ export const dummyProducts = [
     id: "69c22613ae75a98c7cd13b2b",
   },
   {
-    _id: "69c22613ae75a98c7cd13b26",
+    id: "69c22613ae75a98c7cd13b26",
     name: "Apple 1 kg",
     description: "Boosts immunity, Rich in fiber",
     price: 90,
@@ -700,9 +700,9 @@ export const dummyAdminDashboardData = {
         lng: -74.006,
         updatedAt: "2026-04-06T08:41:27.211Z",
       },
-      _id: "69d366617ed7e54198d67dac",
+      id: "69d366617ed7e54198d67dac",
       user: {
-        _id: "69bb6caf448f2d818db59122",
+        id: "69bb6caf448f2d818db59122",
         name: "Admin",
         email: "admin@example.com",
       },
@@ -715,7 +715,7 @@ export const dummyAdminDashboardData = {
           price: 45,
           quantity: 2,
           unit: "100g",
-          _id: "69d366617ed7e54198d67dad",
+          id: "69d366617ed7e54198d67dad",
         },
         {
           product: "69c22613ae75a98c7cd13b36",
@@ -725,7 +725,7 @@ export const dummyAdminDashboardData = {
           price: 140,
           quantity: 1,
           unit: "1kg",
-          _id: "69d366617ed7e54198d67dae",
+          id: "69d366617ed7e54198d67dae",
         },
       ],
       paymentMethod: "cash",
@@ -738,36 +738,36 @@ export const dummyAdminDashboardData = {
         {
           status: "Placed",
           note: "Order placed successfully",
-          _id: "69d366617ed7e54198d67daf",
+          id: "69d366617ed7e54198d67daf",
           timestamp: "2026-04-06T07:53:05.769Z",
         },
         {
           status: "Assigned",
           note: "Assigned to Rahul",
-          _id: "69d366ab7ed7e54198d67dbe",
+          id: "69d366ab7ed7e54198d67dbe",
           timestamp: "2026-04-06T07:54:19.796Z",
         },
         {
           status: "Packed",
           note: "Status updated to Packed",
-          _id: "69d366b37ed7e54198d67ddc",
+          id: "69d366b37ed7e54198d67ddc",
           timestamp: "2026-04-06T07:54:27.171Z",
         },
         {
           status: "Out for Delivery",
           note: "Status updated to Out for Delivery",
-          _id: "69d366b57ed7e54198d67e00",
+          id: "69d366b57ed7e54198d67e00",
           timestamp: "2026-04-06T07:54:29.226Z",
         },
         {
           status: "Delivered",
           note: "Delivered by partner",
-          _id: "69d373207ed7e54198d681b1",
+          id: "69d373207ed7e54198d681b1",
           timestamp: "2026-04-06T08:47:28.983Z",
         },
       ],
       deliveryPartner: {
-        _id: "69bbfc3866db7c6cdea47ede",
+        id: "69bbfc3866db7c6cdea47ede",
         name: "Rahul",
         phone: "987654321",
       },
@@ -782,7 +782,7 @@ export const dummyAdminDashboardData = {
 
 export const dummyDeliveryPartnerData = [
   {
-    _id: "69bbfc6c66db7c6cdea47ee4",
+    id: "69bbfc6c66db7c6cdea47ee4",
     name: "John Doe",
     email: "johndoe@example.com",
     phone: "987654321",
@@ -794,7 +794,7 @@ export const dummyDeliveryPartnerData = [
     __v: 0,
   },
   {
-    _id: "69bbfc3866db7c6cdea47ede",
+    id: "69bbfc3866db7c6cdea47ede",
     name: "Rahul",
     email: "rahul@example.com",
     phone: "987654321",
@@ -823,9 +823,9 @@ export const dummyDashboardOrdersData = [
       lng: -74.006,
       updatedAt: "2026-04-06T08:41:27.211Z",
     },
-    _id: "69d366617ed7e54198d67dac",
+    id: "69d366617ed7e54198d67dac",
     user: {
-      _id: "69bb6caf448f2d818db59122",
+      id: "69bb6caf448f2d818db59122",
       name: "Admin",
       email: "admin@example.com",
     },
@@ -838,7 +838,7 @@ export const dummyDashboardOrdersData = [
         price: 45,
         quantity: 2,
         unit: "100g",
-        _id: "69d366617ed7e54198d67dad",
+        id: "69d366617ed7e54198d67dad",
       },
       {
         product: "69c22613ae75a98c7cd13b36",
@@ -848,7 +848,7 @@ export const dummyDashboardOrdersData = [
         price: 140,
         quantity: 1,
         unit: "1kg",
-        _id: "69d366617ed7e54198d67dae",
+        id: "69d366617ed7e54198d67dae",
       },
     ],
     paymentMethod: "cash",
@@ -861,36 +861,36 @@ export const dummyDashboardOrdersData = [
       {
         status: "Placed",
         note: "Order placed successfully",
-        _id: "69d366617ed7e54198d67daf",
+        id: "69d366617ed7e54198d67daf",
         timestamp: "2026-04-06T07:53:05.769Z",
       },
       {
         status: "Assigned",
         note: "Assigned to Rahul",
-        _id: "69d366ab7ed7e54198d67dbe",
+        id: "69d366ab7ed7e54198d67dbe",
         timestamp: "2026-04-06T07:54:19.796Z",
       },
       {
         status: "Packed",
         note: "Status updated to Packed",
-        _id: "69d366b37ed7e54198d67ddc",
+        id: "69d366b37ed7e54198d67ddc",
         timestamp: "2026-04-06T07:54:27.171Z",
       },
       {
         status: "Out for Delivery",
         note: "Status updated to Out for Delivery",
-        _id: "69d366b57ed7e54198d67e00",
+        id: "69d366b57ed7e54198d67e00",
         timestamp: "2026-04-06T07:54:29.226Z",
       },
       {
         status: "Delivered",
         note: "Delivered by partner",
-        _id: "69d373207ed7e54198d681b1",
+        id: "69d373207ed7e54198d681b1",
         timestamp: "2026-04-06T08:47:28.983Z",
       },
     ],
     deliveryPartner: {
-      _id: "69bbfc3866db7c6cdea47ede",
+      id: "69bbfc3866db7c6cdea47ede",
       name: "Rahul",
       email: "rahul@example.com",
       phone: "987654321",
@@ -916,9 +916,9 @@ export const dummyDashboardOrdersData = [
       lng: -74.006,
       updatedAt: "2026-04-06T08:41:27.211Z",
     },
-    _id: "69d366617ed7e54198d67dad",
+    id: "69d366617ed7e54198d67dad",
     user: {
-      _id: "69bb6caf448f2d818db59122",
+      id: "69bb6caf448f2d818db59122",
       name: "Admin",
       email: "admin@example.com",
     },
@@ -931,7 +931,7 @@ export const dummyDashboardOrdersData = [
         price: 45,
         quantity: 2,
         unit: "100g",
-        _id: "69d366617ed7e54198d67dad",
+        id: "69d366617ed7e54198d67dad",
       },
       {
         product: "69c22613ae75a98c7cd13b36",
@@ -941,7 +941,7 @@ export const dummyDashboardOrdersData = [
         price: 140,
         quantity: 1,
         unit: "1kg",
-        _id: "69d366617ed7e54198d67dae",
+        id: "69d366617ed7e54198d67dae",
       },
     ],
     paymentMethod: "cash",
@@ -954,30 +954,30 @@ export const dummyDashboardOrdersData = [
       {
         status: "Placed",
         note: "Order placed successfully",
-        _id: "69d366617ed7e54198d67daf",
+        id: "69d366617ed7e54198d67daf",
         timestamp: "2026-04-06T07:53:05.769Z",
       },
       {
         status: "Assigned",
         note: "Assigned to Rahul",
-        _id: "69d366ab7ed7e54198d67dbe",
+        id: "69d366ab7ed7e54198d67dbe",
         timestamp: "2026-04-06T07:54:19.796Z",
       },
       {
         status: "Packed",
         note: "Status updated to Packed",
-        _id: "69d366b37ed7e54198d67ddc",
+        id: "69d366b37ed7e54198d67ddc",
         timestamp: "2026-04-06T07:54:27.171Z",
       },
       {
         status: "Out for Delivery",
         note: "Status updated to Out for Delivery",
-        _id: "69d366b57ed7e54198d67e00",
+        id: "69d366b57ed7e54198d67e00",
         timestamp: "2026-04-06T07:54:29.226Z",
       },
     ],
     deliveryPartner: {
-      _id: "69bbfc3866db7c6cdea47ede",
+      id: "69bbfc3866db7c6cdea47ede",
       name: "Rahul",
       email: "rahul@example.com",
       phone: "987654321",
@@ -1006,7 +1006,7 @@ export const dummyAddressData = [
     isDefault: true,
     lat: 40.7128,
     lng: -74.006,
-    _id: "69d3652df9a340288f1a0f8c",
+    id: "69d3652df9a340288f1a0f8c",
   },
   {
     label: "Work",
@@ -1017,6 +1017,6 @@ export const dummyAddressData = [
     isDefault: false,
     lat: 40.7128,
     lng: -74.006,
-    _id: "69d3652df9a340288f1a0f8d",
+    id: "69d3652df9a340288f1a0f8d",
   },
 ];

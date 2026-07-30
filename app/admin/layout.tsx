@@ -15,10 +15,13 @@ import Navbar from "../components/Navbar";
 import { CartProvider } from "../context/CartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { AuthProvider, useAuthContext } from "../context/authContext";
+import Loading from "../components/Loading";
 
 export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const { user, loading } = useAuthContext();
   const pathName = usePathname();
   const navigation = useRouter();
   const AdminLinkData = [
@@ -29,6 +32,8 @@ export default function AdminLayout({
     { to: "/admin/delivery-partners", label: "Delivery Partners", icon: Truck },
     { to: "/", label: "Exit", icon: LogOutIcon },
   ];
+  if (loading) return <Loading />;
+  if (!user?.isAdmin) return navigation.replace("/login");
   return (
     <>
       <div className="h-screen overflow-hidden">

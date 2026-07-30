@@ -24,7 +24,7 @@ const CheckoutPage = () => {
   const [step, setStep] = useState("address");
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState<Address>({
-    _id: "",
+    id: "",
     label: "Home",
     address: "",
     city: "",
@@ -55,7 +55,7 @@ const CheckoutPage = () => {
       );
       if (defaultAddress) {
         setAddress({
-          _id: defaultAddress?._id,
+          id: defaultAddress?.id,
           label: defaultAddress?.label,
           address: defaultAddress?.address,
           city: defaultAddress?.city,

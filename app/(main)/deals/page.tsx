@@ -1,17 +1,25 @@
 "use client";
 import Loading from "@/app/components/Loading";
 import ProductCard from "@/app/components/ProductCard";
+import api from "@/app/config/api";
 import { Product } from "@/app/types";
 import { dummyProducts } from "@/public/grocery-assets/assets";
 import { Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const FlashDeals = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProducts(dummyProducts.filter((p) => p.stock > 0));
+    api
+      .get("/products/flash-deals")
+      .then((res) => setProducts(res.data.products))
+      .catch((error: any) => {
+        toast.error(error?.response?.data?.message || error.message);
+        setLoading(false);
+      });
     setTimeout(() => setLoading(false), 0);
   }, []);
 
@@ -48,7 +56,7 @@ const FlashDeals = () => {
             {products.map(
               (product) =>
                 product.stock > 0 && (
-                  <ProductCard key={product._id} product={product} />
+                  <ProductCard key={product.id} product={product} />
                 ),
             )}
           </div>

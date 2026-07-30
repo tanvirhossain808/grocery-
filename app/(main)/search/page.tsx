@@ -1,12 +1,14 @@
 "use client";
 import Loading from "@/app/components/Loading";
 import ProductCard from "@/app/components/ProductCard";
+import api from "@/app/config/api";
 import { Product } from "@/app/types";
 import { dummyProducts } from "@/public/grocery-assets/assets";
 import { Home, Search } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const SearchPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,13 +17,20 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (!query) return;
-    setLoading(true);
-    setProducts(
-      dummyProducts.filter((p) =>
-        p.name.toLowerCase().includes(query.toLowerCase()),
-      ),
-    );
-    setLoading(false);
+    // setLoading(true);
+    // setProducts(
+    //   dummyProducts.filter((p) =>
+    //     p.name.toLowerCase().includes(query.toLowerCase()),
+    //   ),
+    // );
+    api
+      .get(`/products?search=${encodeURIComponent(query)}`)
+      .then((res) => setProducts(res.data.products))
+      .catch((error) =>
+        toast.error(error?.response?.data?.message || error?.message),
+      )
+      .finally(() => setLoading(false));
+    // setLoading(false);
   }, [query]);
   return (
     <div className="min-h-screen bg-app-cream">
@@ -66,7 +75,7 @@ const SearchPage = () => {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {products.map((p) => (
-              <ProductCard key={p._id} product={p} />
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         )}

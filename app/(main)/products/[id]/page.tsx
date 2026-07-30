@@ -35,27 +35,27 @@ const ProductPage = () => {
     setLoading(true);
     setLocalQuantity(1);
     window.scrollTo(0, 0);
-    const product = dummyProducts.find((p) => p._id === id);
+    const product = dummyProducts.find((p) => p.id === id);
     setProduct(product!);
-    setRelatedProduct(dummyProducts.filter((p) => p._id !== id));
+    setRelatedProduct(dummyProducts.filter((p) => p.id !== id));
     setLoading(false);
   }, [id]);
   if (loading) return <Loading />;
   if (!product) return null;
 
-  const cartItem = items.find((item) => item.product._id === id);
+  const cartItem = items.find((item) => item.product.id === id);
   const inCart = !!cartItem;
   const displayLocalQuantity = inCart ? cartItem.quantity : localQuantity;
   const categoryLabel = product.category.replace(/-/, " ");
   const handleMinus = () => {
     if (inCart) {
       if (cartItem.quantity > 1)
-        updateQuantity(product._id, cartItem.quantity - 1);
-      else removeFromCart(product._id);
+        updateQuantity(product.id, cartItem.quantity - 1);
+      else removeFromCart(product.id);
     } else setLocalQuantity(Math.max(1, localQuantity - 1));
   };
   const handlePlus = () => {
-    if (inCart) updateQuantity(product._id, cartItem.quantity + 1);
+    if (inCart) updateQuantity(product.id, cartItem.quantity + 1);
     else setLocalQuantity(localQuantity + 1);
   };
   return (
@@ -238,7 +238,7 @@ const ProductPage = () => {
       )}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cold-5 gap-4 xl:gap-8">
         {relatedProduct.slice(0, 5).map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

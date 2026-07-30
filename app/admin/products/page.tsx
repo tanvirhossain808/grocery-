@@ -71,7 +71,7 @@ export default function AdminProducts() {
               ) : (
                 products.map((product) => (
                   <tr
-                    key={product._id}
+                    key={product.id}
                     className="hover:bg-zinc-50/50 transition-colors"
                   >
                     <td className="px-6 py-4">
@@ -107,14 +107,14 @@ export default function AdminProducts() {
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Link
-                          href={`/admin/products/${product._id}/edit`}
+                          href={`/admin/products/${product.id}/edit`}
                           className="p-2 text-zinc-500 hover:text-app-orange bg-zinc-100 hover:bg-orange-50 rounded-lg transition-colors"
                         >
                           <EditIcon className="size-4" />
                         </Link>
                         <button
                           onClick={() =>
-                            handleMarkOutOfStock(product._id, product.name)
+                            handleMarkOutOfStock(product.id, product.name)
                           }
                           title="Mark Out of Stock"
                           className="p-2 text-zinc-500 hover:text-red-600 bg-zinc-100 hover:bg-red-50 rounded-lg transition-colors"

@@ -2,6 +2,7 @@
 import FilterPanel from "@/app/components/FilterPanel";
 import Loading from "@/app/components/Loading";
 import ProductCard from "@/app/components/ProductCard";
+import api from "@/app/config/api";
 import { Product } from "@/app/types";
 import { categoriesData, dummyProducts } from "@/public/grocery-assets/assets";
 import { Button } from "@heroui/react";
@@ -9,6 +10,7 @@ import { ChevronDown, Home, SlidersHorizontal, XIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Products = () => {
   const searchParams = useSearchParams();
@@ -30,10 +32,26 @@ const Products = () => {
   const page = Number(pageString);
   const fetchProducts = async () => {
     setLoading(true);
-    setProducts(
-      dummyProducts.filter((p) => p.category === category || category === ""),
-    );
-    setLoading(false);
+    // setProducts(
+    //   dummyProducts.filter((p) => p.category === category || category === ""),
+    // );
+    try {
+      const params = new URLSearchParams();
+      if (category) params.set("category", category);
+      if (organic) params.set("organic", organic);
+      if (sort) params.set("sort", sort);
+      if (minPrice) params.set("minPrice", minPrice);
+      if (maxPrice) params.set("maxPrice", maxPrice);
+      params.set("page", String(page));
+      params.set("limit", "12");
+      const { data } = await api.get(`/products?${params.toString()}`);
+      setProducts(data.products);
+      setTotalPages(data.pages);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   const updateFilters = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -135,7 +153,7 @@ const Products = () => {
                 {products.map(
                   (product) =>
                     product.stock > 0 && (
-                      <ProductCard product={product} key={product._id} />
+                      <ProductCard product={product} key={product.id} />
                     ),
                 )}
               </div>
