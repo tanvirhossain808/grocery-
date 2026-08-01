@@ -5,7 +5,8 @@ import { PlusIcon, EditIcon, XIcon } from "lucide-react";
 import Loading from "../../components/Loading";
 import Link from "next/link";
 import { Product } from "../types";
-import { dummyProducts } from "@/public/grocery-assets/assets";
+import toast from "react-hot-toast";
+import api from "@/app/config/api";
 
 export default function AdminProducts() {
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
@@ -14,10 +15,17 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
-    setProducts(dummyProducts);
-    setTimeout(() => {
+    try {
+      // Simulate an API call
+      const { data } = await api.get("/products");
+
+      setProducts(data.products);
+    } catch (error: any) {
+      console.error("Error fetching products:", error);
+      toast.error(error.response?.data?.message || error.message);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +39,13 @@ export default function AdminProducts() {
       )
     )
       return;
+    try {
+      await api.delete(`/products/${id}`);
+      toast.success(`"${name}" marked as out of stock!`);
+      fetchProducts();
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message);
+    }
     console.log(id);
   };
 

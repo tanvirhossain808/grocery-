@@ -5,7 +5,9 @@ import { useParams } from "next/navigation";
 import { categoriesData, dummyProducts } from "@/public/grocery-assets/assets";
 import Link from "next/link";
 import Loading from "@/app/components/Loading";
-
+import api from "@/app/config/api";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 export default function AdminProductForm() {
   const { id } = useParams();
   const isEdit = Boolean(id);
@@ -13,7 +15,7 @@ export default function AdminProductForm() {
   const [loading, setLoading] = useState(isEdit);
   const [saving, setSaving] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
-
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -28,16 +30,75 @@ export default function AdminProductForm() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isEdit) {
-        setFormData(() => dummyProducts.find((p) => p.id === id) as any);
+      try {
+        if (isEdit) {
+          const { data } = await api.get(`/products/${id}`);
+          const product = data.product;
+          setFormData({
+            name: product.name,
+            description: product.description,
+            price: product.price.toString(),
+            originalPrice: product.originalPrice?.toString() || "",
+            image: product.image,
+            category: product.category,
+            unit: product.unit,
+            stock: product.stock.toString(),
+            isOrganic: product.isOrganic,
+          });
+        }
+      } catch (error: any) {
+        toast.error(
+          error.response?.data?.message ||
+            error.message ||
+            "Error fetching product data",
+        );
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchData();
   }, [id, isEdit]);
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
+    setSaving(true);
+    try {
+      let finalImageUrl = formData.image;
+      if (imageFile) {
+        const formDataToUpload = new FormData();
+        formDataToUpload.append("image", imageFile);
+        const { data } = await api.post("/upload", formDataToUpload);
+        finalImageUrl = data.imageUrl;
+      }
+      if (!finalImageUrl) {
+        toast.error("Please upload an image for the product.");
+        setSaving(false);
+        return;
+      }
+      const payload = {
+        ...formData,
+        image: finalImageUrl,
+        price: Number(formData.price),
+        originalPrice: Number(formData.originalPrice) || 0,
+        stock: Number(formData.stock),
+      };
+      if (isEdit) {
+        await api.put(`/products/${id}`, payload);
+        toast.success("Product updated successfully!");
+      } else {
+        await api.post("/products", payload);
+        toast.success("Product created successfully!");
+      }
+      router.push("/admin/products");
+    } catch (error: any) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Error saving product data",
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (

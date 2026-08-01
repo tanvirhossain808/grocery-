@@ -7,10 +7,8 @@ import {
   AlertTriangleIcon,
 } from "lucide-react";
 import Loading from "../components/Loading";
-import {
-  dummyAdminDashboardData,
-  statusColors,
-} from "@/public/grocery-assets/assets";
+import api from "../config/api";
+import { statusColors } from "@/public/grocery-assets/assets";
 import Link from "next/link";
 
 interface Stats {
@@ -28,10 +26,11 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setStats(dummyAdminDashboardData);
-      setLoading(false);
-    }, 1000);
+    api
+      .get("/admin/stats")
+      .then((res) => setStats(res.data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const cards = stats
