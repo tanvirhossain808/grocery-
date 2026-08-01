@@ -10,15 +10,13 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <AuthProvider>
-        <CartProvider>
-          <Banner />
-          <Navbar />
-          <div>{children}</div>
-          <Footer />
-          <CartSidebar />
-        </CartProvider>
-      </AuthProvider>
+      <CartProvider>
+        <Banner />
+        <Navbar />
+        <div>{children}</div>
+        <Footer />
+        <CartSidebar />
+      </CartProvider>
     </>
   );
 }

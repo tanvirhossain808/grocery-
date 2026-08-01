@@ -3,7 +3,6 @@ import Loading from "@/app/components/Loading";
 import ProductCard from "@/app/components/ProductCard";
 import api from "@/app/config/api";
 import { Product } from "@/app/types";
-import { dummyProducts } from "@/public/grocery-assets/assets";
 import { Home, Search } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

@@ -7,6 +7,7 @@ import { Product } from "@/app/types";
 import { dummyProducts } from "@/public/grocery-assets/assets";
 import DummyReviewsSection from "@/public/grocery-assets/DummyReviewsSection";
 import { Button } from "@heroui/react";
+import api from "@/app/config/api";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -35,10 +36,22 @@ const ProductPage = () => {
     setLoading(true);
     setLocalQuantity(1);
     window.scrollTo(0, 0);
-    const product = dummyProducts.find((p) => p.id === id);
-    setProduct(product!);
-    setRelatedProduct(dummyProducts.filter((p) => p.id !== id));
-    setLoading(false);
+
+    const products = api
+      .get(`/products/${id}`)
+      .then(({ data }) => {
+        console.log(data, "data");
+        setProduct(data.product);
+        return api.get(`/products?category=${data.product.category}`);
+      })
+      .then(({ data }) => {
+        setRelatedProduct(data.products.filter((p: Product) => p.id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+        router.push("/products");
+      })
+      .finally(() => setLoading(false));
   }, [id]);
   if (loading) return <Loading />;
   if (!product) return null;

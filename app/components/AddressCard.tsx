@@ -3,6 +3,9 @@ import React from "react";
 import { Address } from "../types";
 import { CheckIcon, MapPinIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { Button } from "@heroui/react";
+import { useAuthContext } from "../context/authContext";
+import toast from "react-hot-toast";
+import api from "../config/api";
 interface AddressCardProps {
   addr: Address;
   onEditHandler: (add: Address) => void;
@@ -13,8 +16,20 @@ const AddressCard = ({
   onEditHandler,
   setAddresses,
 }: AddressCardProps) => {
+  const { updateUser } = useAuthContext();
   const handleDelete = async (id: string) => {
-    console.log(id);
+    try {
+      const confirm = window.confirm(
+        "Are you sure you want to delete this address?",
+      );
+      if (!confirm) return;
+      const { data } = await api.delete(`/addresses/${id}`);
+      setAddresses(data.addresses);
+      updateUser({ addresses: data.addresses });
+      toast.success("Address deleted successfully");
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error?.message);
+    }
   };
   return (
     <div
@@ -49,7 +64,10 @@ const AddressCard = ({
         >
           <PencilIcon className="size-4" />
         </Button>
-        <Button className="p-2 bg-inherit text-app-text-light hover:text-app-error hover:bg-red-50 rounded-lg transition-colors">
+        <Button
+          onClick={() => handleDelete(addr.id)}
+          className="p-2 bg-inherit text-app-text-light hover:text-app-error hover:bg-red-50 rounded-lg transition-colors"
+        >
           <TrashIcon className="size-4" />
         </Button>
       </div>

@@ -2,13 +2,17 @@
 import AddressCard from "@/app/components/AddressCard";
 import AddressForm from "@/app/components/AddressForm";
 import Loading from "@/app/components/Loading";
+import api from "@/app/config/api";
+import { useAuthContext } from "@/app/context/authContext";
 import { Address } from "@/app/types";
 import { dummyAddressData } from "@/public/grocery-assets/assets";
 import { Button } from "@heroui/react";
 import { MapPinIcon, PlusIcon } from "lucide-react";
 import React, { SubmitEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const AddressPage = () => {
+  const { updateUser } = useAuthContext();
   const [address, setAddresses] = useState<Address[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -33,8 +37,64 @@ const AddressPage = () => {
     setShowForm(false);
     setEditingId(null);
   };
-  const handleSubmit = (e: SubmitEvent) => {
+  const getLocation = (retries = 3): Promise<{ lat: number; lng: number }> => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        return Promise.reject(
+          new Error("Geolocation is not supported by this browser."),
+        );
+      }
+      const attempt = () => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            resolve({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (error) => {
+            if (retries > 0) {
+              retries--;
+              setTimeout(attempt, 1000); // Retry after 1 second
+            } else {
+              reject(
+                new Error(
+                  "Unable to retrieve your location after multiple attempts. Please ensure location services are enabled and try again.",
+                ),
+              );
+            }
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 600000, // 10 minutes
+          },
+        );
+      };
+      attempt();
+    });
+  };
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
+    try {
+      const coords = await getLocation();
+      console.log("coords", coords);
+      const payload = { ...form, ...coords };
+      if (editingId) {
+        const { data } = await api.put(`/addresses/${editingId}`, payload);
+        setAddresses(data.addresses);
+        updateUser({ addresses: data.addresses });
+        toast.success("Address updated successfully");
+      } else {
+        const { data } = await api.post("/addresses", payload);
+        setAddresses(data.addresses);
+        updateUser({ addresses: data.addresses });
+        toast.success("Address added successfully");
+      }
+      resetForm();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error?.message);
+    }
   };
   const onEditHandler = (add: Address) => {
     setForm({
@@ -49,10 +109,13 @@ const AddressPage = () => {
     setShowForm(true);
   };
   useEffect(() => {
-    setAddresses(dummyAddressData);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    api
+      .get("/addresses")
+      .then(({ data }) => setAddresses(data.addresses))
+      .catch((error: any) => {
+        toast.error(error?.response?.data?.message || error?.message);
+      })
+      .finally(() => setLoading(false));
   }, []);
   return (
     <div className="min-h-screen bg-app-cream">
