@@ -6,6 +6,8 @@ import { useCart } from "@/app/context/CartContext";
 import { Address } from "@/app/types";
 import { dummyAddressData } from "@/public/grocery-assets/assets";
 import { Button } from "@heroui/react";
+import toast from "react-hot-toast";
+import api from "@/app/config/api";
 import {
   ArrowLeftIcon,
   CheckIcon,
@@ -15,11 +17,12 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useAuthContext } from "@/app/context/authContext";
 
 const CheckoutPage = () => {
   const router = useRouter();
-  const { items, cartTotal } = useCart();
-  const { user } = { user: { addresses: dummyAddressData } };
+  const { items, cartTotal, clearCart } = useCart();
+  const { user } = useAuthContext();
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
   const [step, setStep] = useState("address");
   const [loading, setLoading] = useState(false);
@@ -46,7 +49,40 @@ const CheckoutPage = () => {
   ];
   const handlePlaceOrder = async () => {
     setLoading(true);
-    router.push("/orders");
+    try {
+      // const orderData = items.map((item) => ({
+      //   items: { product: item.product.id, quantity: item.quantity },
+
+      // }));
+      const orderData = {
+        items: items.map((item) => ({
+          product: item.product.id,
+          quantity: item.quantity,
+        })),
+        shippingAddress: address,
+        paymentMethod: paymentMethod,
+      };
+      console.log("Order Data:", orderData);
+      const { data } = await api.post("/orders", orderData);
+      console.log(data);
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      clearCart();
+      toast.success("Order placed successfully");
+      router.push(`/orders/${data.order.id}`);
+    } catch (error: any) {
+      console.error("Error placing order:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Failed to place order",
+      );
+    } finally {
+      setLoading(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
   useState(() => {
     if (user?.addresses?.length) {

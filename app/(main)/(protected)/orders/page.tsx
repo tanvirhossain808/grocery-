@@ -3,32 +3,38 @@ import Loading from "@/app/components/Loading";
 import { useAuthContext } from "@/app/context/authContext";
 import { useCart } from "@/app/context/CartContext";
 import { Order } from "@/app/types";
-import {
-  dummyAddressData,
-  dummyDashboardOrdersData,
-  statusColors,
-} from "@/public/grocery-assets/assets";
+import { statusColors } from "@/public/grocery-assets/assets";
+import toast from "react-hot-toast";
 import { Button } from "@heroui/react";
 import { CalendarIcon, ChevronRightIcon, PackageIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-
+import api from "@/app/config/api";
 const MyOrders = () => {
   const { user } = useAuthContext();
 
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
   const [orders, setOrders] = useState<Order[]>([]);
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState("all");
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const { clearCart } = useCart();
   const pathName = usePathname();
   const router = useRouter();
-  const tabs = ["All", "Placed", "Out for Delivery", "Delivered"];
+  const tabs = ["all", "Placed", "Out for Delivery", "Delivered"];
   const fetchOrders = async () => {
-    setOrders(dummyDashboardOrdersData as any);
+    setLoading(true);
+    try {
+      const params = activeTab !== "all" ? `?status=${activeTab}` : "";
+      const { data } = await api.get(`/orders${params}`);
+      setOrders(data.orders);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error?.message);
+    } finally {
+      setLoading(false);
+    }
     setLoading(false);
   };
   useEffect(() => {
@@ -49,6 +55,7 @@ const MyOrders = () => {
           {tabs.map((tab, i) => (
             <Button
               key={i}
+              onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 text-sm font-medium rounded-xl whitespace-nowrap transition-colors ${activeTab === tab ? "bg-app-green text-white" : "bg-white text-app-text-light"}`}
             >
               {tab === "all" ? "All Orders" : tab}

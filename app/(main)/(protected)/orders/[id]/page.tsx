@@ -14,7 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-
+import api from "@/app/config/api";
+import toast from "react-hot-toast";
 const OrderTrackingPage = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -23,11 +24,45 @@ const OrderTrackingPage = () => {
   const [liveLocation, setLiveLocation] = useState<{
     lat: number;
     lng: number;
-  } | null>();
+  } | null>(null);
   useEffect(() => {
-    setOrder(dummyDashboardOrdersData.find((o) => o.id === id) as any);
-    setLoading(false);
+    api
+      .get(`/orders/${id}`)
+      .then((res) => setOrder(res.data.order))
+      .catch((error: any) =>
+        toast.error(error?.response?.data?.message || error?.message),
+      )
+      .finally(() => setLoading(false))
+      .finally(() => setLoading(false));
   }, [id]);
+
+  //live location every 10 second
+  useEffect(() => {
+    if (!order || ["Delivered", "Cancelled", "Placed"].includes(order.status))
+      return;
+    const fetchLocation = async () => {
+      try {
+        const { data } = await api.get(`/orders/${id}/location`);
+        if (
+          data.liveLocation?.lat &&
+          data.liveLocation?.lng &&
+          data.liveLocation?.updatedAt
+        )
+          setLiveLocation({
+            lat: data.liveLocation.lat,
+            lng: data.liveLocation.lng,
+          });
+        //also update order status if changed
+        if (data.status && data.status !== order.status) {
+          setOrder((prev) => (prev ? { ...prev, status: data.status } : prev));
+        }
+      } catch (error) {}
+    };
+    fetchLocation();
+    const interval = setInterval(fetchLocation, 10000);
+    return () => clearInterval(interval);
+  }, [id, order?.status]);
+
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
   if (loading) return <Loading />;
   if (!order) return null;
