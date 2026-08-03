@@ -1,17 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BikeIcon } from "lucide-react";
 import { heroSectionData } from "@/public/grocery-assets/assets";
+import api from "@/app/config/api";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function DeliveryLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
+    setLoading(true);
+    try {
+      const { data } = await api.post("/delivery/login", { email, password });
+      localStorage.setItem("delivery_token", data.token);
+      localStorage.setItem("delivery_partner", JSON.stringify(data.partner));
+      toast.success("User login successfully");
+      router.replace("/delivery");
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error?.message);
+    } finally {
+      setLoading(false);
+    }
   };
-
+  useEffect(() => {
+    if (localStorage.getItem("delivery_token")) router.replace("/delivery");
+  }, []);
   return (
     <div className="min-h-screen flex">
       {/* Left Side */}
