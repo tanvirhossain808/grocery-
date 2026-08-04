@@ -2,7 +2,7 @@
 import { BikeIcon, LockIcon, MailIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { SubmitEvent, useState } from "react";
+import React, { FormEvent, SubmitEvent, useState } from "react";
 import { redirect } from "next/navigation";
 
 import {
@@ -27,7 +27,8 @@ export default function LoginPage() {
   });
   const [loading, setLoading] = useState(false);
   const { login, register } = useAuthContext();
-  const handleSubmit = async (e: SubmitEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const { name, email, password } = formData;
     e.preventDefault();
     setLoading(true);
