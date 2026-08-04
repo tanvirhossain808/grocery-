@@ -34,7 +34,7 @@ export default function DeliveryLogin() {
       {/* Left Side */}
       <div className="hidden lg:flex lg:w-1/2 bg-app-green relative items-center justify-center">
         <img
-          src={heroSectionData.hero_image}
+          src={heroSectionData.hero_image.src}
           alt=""
           className="absolute inset-0 object-cover h-full bg-center opacity-10"
         />
