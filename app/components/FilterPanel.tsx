@@ -9,7 +9,7 @@ const FilterPanel = ({
   clearFilters,
   hasFilters,
   organic,
-}) => {
+}: any) => {
   const categoriesWithAll = [
     { slug: "", name: "All Categories" },
     ...categories,
