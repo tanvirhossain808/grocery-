@@ -47,7 +47,7 @@ const AddressForm = ({
                 className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none"
                 value={form.label}
                 onChange={(e) =>
-                  setForm((pre) => {
+                  setForm((pre: any) => {
                     return { ...pre, label: e.target.value };
                   })
                 }
@@ -63,7 +63,7 @@ const AddressForm = ({
                 className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none"
                 value={form.address}
                 onChange={(e) =>
-                  setForm((pre) => {
+                  setForm((pre: any) => {
                     return { ...pre, address: e.target.value };
                   })
                 }
@@ -81,7 +81,7 @@ const AddressForm = ({
                   className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none"
                   value={form.city}
                   onChange={(e) =>
-                    setForm((pre) => {
+                    setForm((pre: any) => {
                       return { ...pre, city: e.target.value };
                     })
                   }
@@ -98,7 +98,7 @@ const AddressForm = ({
                   className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none"
                   value={form.state}
                   onChange={(e) =>
-                    setForm((pre) => {
+                    setForm((pre: any) => {
                       return { ...pre, state: e.target.value };
                     })
                   }
@@ -117,7 +117,7 @@ const AddressForm = ({
                   className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none"
                   value={form.zip}
                   onChange={(e) =>
-                    setForm((pre) => {
+                    setForm((pre: any) => {
                       return { ...pre, zip: e.target.value };
                     })
                   }
