@@ -1,8 +1,8 @@
+import { Suspense } from "react";
 import Banner from "../components/Banner";
 import CartSidebar from "../components/CartSidebar";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { AuthProvider } from "../context/authContext";
 import { CartProvider } from "../context/CartContext";
 
 export default function Layout({
@@ -13,7 +13,9 @@ export default function Layout({
       <CartProvider>
         <Banner />
         <Navbar />
-        <div>{children}</div>
+        <div>
+          <Suspense>{children}</Suspense>
+        </div>
         <Footer />
         <CartSidebar />
       </CartProvider>

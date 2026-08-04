@@ -1,5 +1,5 @@
 import { ChevronRightIcon, MapPinIcon, PlusIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const CheckoutAddress = ({ user, address, setAddress, setStep }: any) => {
   return (
@@ -50,7 +50,7 @@ const CheckoutAddress = ({ user, address, setAddress, setStep }: any) => {
         </div>
       )}
       <Link
-        to="/addresses"
+        href="/addresses"
         className="mt-6 px-6 py-3 border border-gray-600 text-gray-600 rounded-xl flex-center gap-2"
       >
         Add New Address <PlusIcon className="size-4" />

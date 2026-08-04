@@ -28,7 +28,16 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "public/grocery-assets/pages/delivery/DeliveryLogin.bsx",
+    "public/grocery-assets/pages/delivery/DeliveryLayout.bsx",
+    "public/grocery-assets/pages/delivery/DeliveryDashboard.bsx",
+    "public/grocery-assets/pages/admin/AdminProducts.bsx",
+    "public/grocery-assets/pages/admin/AdminProductForm.bsx",
+    "public/grocery-assets/pages/admin/AdminOrders.bsx",
+    "public/grocery-assets/pages/admin/AdminLayout.bsx",
+    "public/grocery-assets/pages/admin/AdminDeliveryPartners.bsx",
+    "public/grocery-assets/pages/admin/AdminDashboard.bsx"
   ],
   "exclude": ["node_modules"]
 }
