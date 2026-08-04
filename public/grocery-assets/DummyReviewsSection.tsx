@@ -1,6 +1,7 @@
 import { useMemo } from "react";
-import type { Product } from "../types";
+
 import { StarIcon, ThumbsUpIcon } from "lucide-react";
+import { Product } from "./types";
 
 /* ─── Dummy Reviews Section ─── */
 const REVIEWERS = [

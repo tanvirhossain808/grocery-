@@ -7,7 +7,7 @@ import {
   XCircleIcon,
 } from "lucide-react";
 import type { Order } from "../../types";
-import { statusColors } from "../../assets/assets";
+import { statusColors } from "../../assets";
 
 interface DeliveryOrderCardProps {
   order: Order;

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { PlusIcon, EditIcon, XIcon } from "lucide-react";
 import type { Product } from "../../types";
-import Loading from "../../components/Loading";
-import { dummyProducts } from "../../assets/assets";
+import { dummyProducts } from "../../assets";
+import Loading from "@/app/components/Loading";
+import Link from "next/link";
 
 export default function AdminProducts() {
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
@@ -40,7 +41,7 @@ export default function AdminProducts() {
         <div className="px-6 py-5 border-b border-app-border flex items-center justify-between gap-4 flex-wrap">
           <h2 className="text-xl font-semibold text-zinc-900">Products</h2>
           <Link
-            to="/admin/products/new"
+            href="/admin/products/new"
             className="flex items-center gap-2 px-4 py-2 bg-app-green text-white rounded-xl hover:bg-green-950 transition-colors font-medium text-sm"
           >
             <PlusIcon className="size-4" /> Add Product
@@ -105,7 +106,7 @@ export default function AdminProducts() {
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Link
-                          to={`/admin/products/${product.id}/edit`}
+                          href={`/admin/products/${product.id}/edit`}
                           className="p-2 text-zinc-500 hover:text-app-orange bg-zinc-100 hover:bg-orange-50 rounded-lg transition-colors"
                         >
                           <EditIcon className="size-4" />
