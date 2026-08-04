@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { PlusIcon, EditIcon, XIcon } from "lucide-react";
 import Loading from "../../components/Loading";
 import Link from "next/link";
-import { Product } from "../types";
 import toast from "react-hot-toast";
 import api from "@/app/config/api";
+import { Product } from "@/app/types";
 
 export default function AdminProducts() {
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";

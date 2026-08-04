@@ -9,7 +9,7 @@ import { useCart } from "../context/CartContext";
 interface Props {
   product: Product;
 }
-
+//ts
 const ProductCard = ({ product }: Props) => {
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
   const router = useRouter();
