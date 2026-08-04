@@ -24,6 +24,7 @@ export default function Navbar() {
     cartCount: 3,
     setIsCartOpen: (_data: any) => {},
   };
+  console.log(user, "after");
   const [searchQuery, setSearchQuery] = useState("");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const navigation = useRouter();
