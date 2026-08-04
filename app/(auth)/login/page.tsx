@@ -1,7 +1,7 @@
 "use client";
 import { BikeIcon, LockIcon, MailIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+
 import React, { FormEvent, SubmitEvent, useState } from "react";
 import { redirect } from "next/navigation";
 
@@ -18,6 +18,7 @@ import {
 } from "@heroui/react";
 import { useAuthContext } from "@/app/context/authContext";
 import toast from "react-hot-toast";
+import Link from "next/link";
 export default function LoginPage() {
   const [isLoginState, setIsLoginState] = useState(true);
   const [formData, setFormData] = useState({

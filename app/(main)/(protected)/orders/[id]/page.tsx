@@ -1,10 +1,6 @@
 "use client";
 import Loading from "@/app/components/Loading";
 import { Order } from "@/app/types";
-import {
-  dummyAdminDashboardData,
-  dummyDashboardOrdersData,
-} from "@/public/grocery-assets/assets";
 import LiveMap from "@/public/grocery-assets/components/OrderTracking/LiveMap";
 import OrderOTP from "@/public/grocery-assets/components/OrderTracking/OrderOTP";
 import OrderTimeLine from "@/public/grocery-assets/components/OrderTracking/OrderTimeLine";

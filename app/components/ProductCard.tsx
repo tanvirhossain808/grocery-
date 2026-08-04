@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import { Product } from "../types";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Plus, Star } from "lucide-react";
 import { Button } from "@heroui/react";
 import { useCart } from "../context/CartContext";
+import { Product } from "../types";
 interface Props {
   product: Product;
 }
